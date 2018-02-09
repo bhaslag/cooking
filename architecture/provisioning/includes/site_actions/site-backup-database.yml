@@ -1,0 +1,24 @@
+# Need to have the following site variables:
+# - uri
+# - folder_name
+# TODO: Having a drushrc.php to configure Drush to skip data tables to avoid
+# dumping cache data.
+
+- name: "Ensure dump folder exists."
+  file:
+    path: "{{ drupal_dump_path }}"
+    owner: "{{ drupal_project_user }}"
+    group: "{{ drupal_project_group }}"
+    state: directory
+  failed_when: false
+  run_once: true
+  delegate_to: "{{ groups['webservers-main'][0] }}"
+
+- name: "Dump database for {{ folder_name }}"
+  become: yes
+  become_method: sudo
+  become_user: "{{ drupal_project_user }}"
+  command: "{{ drupal_project_path }}/bin/drush sql-dump --result-file=\"{{ drupal_dump_path }}/{{ folder_name }}-{{ inventory_hostname }}-{{ ansible_date_time.iso8601 }}.sql\" --gzip --uri={{ uri }}"
+  args:
+    chdir: "{{ drupal_source_path }}"
+  delegate_to: "{{ groups['webservers-main'][0] }}"

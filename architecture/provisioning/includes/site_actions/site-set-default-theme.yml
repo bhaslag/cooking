@@ -1,0 +1,19 @@
+# Need to have the following site variables:
+# - uri
+# - folder_name
+
+- name: "Enable theme {{ drupal_sites[folder_name].drupal_theme }} for {{ folder_name }}"
+  become: yes
+  become_method: sudo
+  become_user: "{{ drupal_webserver_user }}"
+  command: "{{ drupal_project_path }}/bin/drush en {{ drupal_sites[folder_name].drupal_theme }} --uri={{ uri }} -y"
+  args:
+    chdir: "{{ drupal_source_path }}"
+
+- name: "Set theme {{ drupal_sites[folder_name].drupal_theme }} as default theme for {{ folder_name }}"
+  become: yes
+  become_method: sudo
+  become_user: "{{ drupal_webserver_user }}"
+  command: "{{ drupal_project_path }}/bin/drush cset system.theme default {{ drupal_sites[folder_name].drupal_theme }} --uri={{ uri }} -y"
+  args:
+    chdir: "{{ drupal_source_path }}"

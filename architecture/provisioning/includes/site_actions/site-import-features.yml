@@ -1,0 +1,30 @@
+# Need to have the following site variables:
+# - uri
+# - folder_name
+
+# Check Features installation.
+- set_fact:
+    features_is_installed: false
+
+- name: "Check if Features is installed for {{ uri }}"
+  become: yes
+  become_method: sudo
+  become_user: "{{ drupal_webserver_user }}"
+  shell: "{{ drupal_project_path }}/bin/drush pml --fields=name --status=enabled --format=list --uri={{ uri }}|grep features"
+  ignore_errors: True
+  register: features_install
+  args:
+    chdir: "{{ drupal_source_path }}"
+
+- set_fact:
+    features_is_installed: true
+  when: "features_install.stdout|trim!=''"
+
+- name: "Import features for {{ uri }}"
+  become: yes
+  become_method: sudo
+  become_user: "{{ drupal_webserver_user }}"
+  command: "{{ drupal_project_path }}/bin/drush fim-all --bundle={{ drupal_sites[folder_name].drupal_install_profile }} --uri={{ uri }} -y"
+  args:
+    chdir: "{{ drupal_source_path }}"
+  when: features_is_installed

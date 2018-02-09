@@ -10,6 +10,8 @@ You can use it directly if you want to initiate the lxc, or to make a delivery.
 
 You can find all the __skeleton documentation__ [here](architecture/README.md).
 
+A small personal project created so that I can better understand Drupal 8.
+
 ## Access
 
  + http://cooking.lxc/                   for the front-office

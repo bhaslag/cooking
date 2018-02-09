@@ -1,0 +1,9 @@
+- set_fact:
+    uri: "{{ site_info.value.uri }}"
+    folder_name: "{{ site_info.value.folder_name }}"
+
+- include: includes/site_actions/site-backup-database.yml
+
+- include: includes/site_actions/site-upgrade-tasks.yml
+
+- include: includes/site_actions/site-import-migrations.yml

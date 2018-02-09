@@ -1,0 +1,9 @@
+- hosts: localhost
+  connection: local
+  tasks:
+
+  - name: "Composer install"
+    command: 'composer install --prefer-dist --optimize-autoloader --no-interaction --ignore-platform-reqs'
+    args:
+      # Path to the directory where the composer.json is.
+      chdir: "../"

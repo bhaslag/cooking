@@ -1,0 +1,18 @@
+# Need to have the following site variables:
+# - uri
+# - folder_name
+
+- include: includes/site_actions/site-update-database.yml
+
+- include: includes/site_actions/site-clean-cache.yml
+
+- include: includes/site_actions/site-import-features.yml
+
+# Relaunch database update to be sure to have translation tables.
+- include: includes/site_actions/site-update-database.yml
+
+- include: includes/site_actions/site-update-translations.yml
+
+# Re-import features after translation update to avoid having overridden
+# features due to configuration object update.
+- include: includes/site_actions/site-import-features.yml

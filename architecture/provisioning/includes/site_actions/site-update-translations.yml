@@ -1,0 +1,49 @@
+# Need to have the following site variables:
+# - uri
+# - folder_name
+# // TODO: have fr as a parameter.
+
+# Check Locale installation.
+- set_fact:
+    locale_is_installed: false
+
+- name: "Check if Locale is installed for {{ uri }}"
+  become: yes
+  become_method: sudo
+  become_user: "{{ drupal_webserver_user }}"
+  shell: "{{ drupal_project_path }}/bin/drush pm-info --fields=status --format=list --uri={{ uri }} locale"
+  ignore_errors: True
+  register: locale_install
+  args:
+    chdir: "{{ drupal_source_path }}"
+
+- set_fact:
+    locale_is_installed: true
+  when: locale_install.stdout == 'enabled'
+
+- block:
+  - name: "Check translations for {{ uri }}"
+    become: yes
+    become_method: sudo
+    become_user: "{{ drupal_webserver_user }}"
+    command: "{{ drupal_project_path }}/bin/drush locale-check --uri={{ uri }}"
+    args:
+      chdir: "{{ drupal_source_path }}"
+
+  - name: "Update translations for {{ uri }}"
+    become: yes
+    become_method: sudo
+    become_user: "{{ drupal_webserver_user }}"
+    command: "{{ drupal_project_path }}/bin/drush locale-update --uri={{ uri }}"
+    args:
+      chdir: "{{ drupal_source_path }}"
+
+  - name: "Import custom translations for {{ uri }}"
+    become: yes
+    become_method: sudo
+    become_user: "{{ drupal_webserver_user }}"
+    command: "{{ drupal_project_path }}/bin/drush language-import fr {{ drupal_source_path }}/profiles/custom/{{ drupal_sites[folder_name].drupal_install_profile }}/translations/{{ drupal_sites[folder_name].drupal_install_profile }}.fr.po --uri={{ uri }}"
+    args:
+      chdir: "{{ drupal_source_path }}"
+
+  when: locale_is_installed

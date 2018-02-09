@@ -1,0 +1,30 @@
+#Vars for Drupal
+drupal_hostname:       "{{ drupal_project_name }}.lxc"
+drupal_mode:           "developer"
+drupal_profiler:       On
+drupal_profiler_type:  html
+
+drupal_php_display_errors:     On
+
+drupal_install_grunt:      true
+drupal_install_maildev:    true
+
+drupal_maintenance_allowed_ips:
+  - "127.0.0.1"
+  - "10.0.3.1"
+
+#Vars for ansible-varnish
+varnish_purge:
+  - "localhost"
+  - "10.0.3.1"
+varnish_admin:
+  - "localhost"
+  - "10.0.3.1"
+
+#Vars for ansible-php
+drupal_php_extension_modules: "{{ php_extension_modules_required + php_extension_modules_debug }}"
+drupal_php_settings_all:      "{{ php_settings_required | combine(php_settings_debug) }}"
+
+
+#Vars for ansible-npm
+nodejs_version: "7.10.0"

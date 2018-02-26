@@ -1,0 +1,5 @@
+itworks.action:
+  route_name: itworks.alsoworks
+  title: 'Go to other route'
+  appears_on:
+    - itworks.content

@@ -1,0 +1,5 @@
+services:
+  itworks.event_subscriber:
+    class: Drupal\itworks\EventSubscriber\MyEventSubscriber
+    tags:
+      - { name: event_subscriber}

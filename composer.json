@@ -75,7 +75,7 @@
     "drupal/pathauto": "^1.0",
     "drupal/redis": "1.0.0-beta1",
     "drupal/token": "^1.0",
-    "drush/drush": "8.1.15",
+    "drush/drush": "^9.1",
     "smile/php-codesniffer-rules": "^4.0",
     "smile/spbuilder": "^4.0",
     "wikimedia/composer-merge-plugin": "~1.3"
@@ -85,7 +85,6 @@
     "behat/mink-goutte-driver": "~1.2",
     "components/highlightjs": "9.12.*",
     "d3/d3": "3.5.*",
-    "drupal/coder": "8.2.*",
     "drupal/config_inspector": "1.*",
     "drupal/console": "1.*",
     "drupal/devel": "1.*",

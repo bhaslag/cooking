@@ -1,0 +1,8 @@
+name: It works
+type: module
+description: 'Drupal 8 tutorial'
+package: Custom modules
+core: 8.x
+project: 'itworks'
+dependencies:
+  - drupal:node

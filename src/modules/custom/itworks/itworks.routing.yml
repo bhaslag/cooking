@@ -1,0 +1,31 @@
+itworks.content:
+  path: '/itworks'
+  defaults:
+    _controller: '\Drupal\itworks\Controller\itWorksController::content'
+    _title: 'Hello World'
+  requirements:
+    _permission: 'access content'
+
+itworks.alsoworks:
+  path: '/itworks/alsoworks'
+  defaults:
+    _controller: '\Drupal\itworks\Controller\itWorksController::alsoWorks'
+    _title: 'Local Action'
+  requirements:
+    _permission: 'access content'
+
+itworks.event:
+  path: '/itworks/eventpage'
+  defaults:
+    _controller: '\Drupal\itworks\Controller\itWorksController::eventPage'
+    _title: 'Local Action'
+  requirements:
+    _permission: 'access content'
+
+itworks.redirectpage:
+  path: '/itworks/redirectpage'
+  defaults:
+    _controller: '\Drupal\itworks\Controller\itWorksController::redirectPage'
+    _title: 'Local Action'
+  requirements:
+    _permission: 'access content'
